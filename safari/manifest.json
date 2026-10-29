@@ -1,0 +1,60 @@
+{
+  "manifest_version": 3,
+  "name": "选译 · 划词翻译（Safari）",
+  "version": "1.0.0",
+  "description": "选中网页上的单词或句子，在浮动翻译窗口中立即查看译文。支持 Google、Azure、DeepL。",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus"
+  ],
+  "host_permissions": [
+    "https://translate.googleapis.com/*",
+    "https://clients5.google.com/*",
+    "https://api.cognitive.microsofttranslator.com/*",
+    "https://api-free.deepl.com/*",
+    "https://api.deepl.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "选译：选中文字后打开翻译窗口",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_ui": {
+    "page": "src/options.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "src/browser-compat.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle",
+      "all_frames": true
+    }
+  ],
+  "commands": {
+    "open-panel": {
+      "suggested_key": {
+        "default": "Alt+Shift+T",
+        "mac": "Alt+Shift+T"
+      },
+      "description": "打开选译翻译窗口"
+    }
+  }
+}

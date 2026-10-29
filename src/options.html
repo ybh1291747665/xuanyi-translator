@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>选译 · 设置</title>
+  <link rel="icon" href="../icons/icon48.png">
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header class="page-header">
+      <div class="brand">
+        <img class="brand-mark" src="../icons/icon48.png" alt="" width="34" height="34">
+        <div class="brand-copy">
+          <span class="brand-name">选译</span>
+          <span class="brand-sub" id="brandSub">划词侧栏翻译</span>
+        </div>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="page-name">设置</span>
+      </div>
+      <div class="save-state" id="saveState" data-state="saved" role="status" aria-live="polite">
+        <span class="save-dot" aria-hidden="true"></span>
+        <span id="saveText">已自动保存</span>
+      </div>
+    </header>
+
+    <section class="hero">
+      <p class="kicker">PREFERENCES</p>
+      <h1>让划词翻译更顺手</h1>
+      <p class="hero-desc">默认配置开箱即用。所有更改会自动保存在这台设备上，不会同步到云端。</p>
+    </section>
+
+    <div class="layout">
+      <main class="main-column">
+        <section class="panel" aria-labelledby="providerTitle">
+          <div class="panel-head">
+            <div>
+              <h2 id="providerTitle">翻译服务</h2>
+              <p>选择译文来源。默认的 Google 通道无需密钥。</p>
+            </div>
+            <span class="panel-badge" id="activeProviderLabel">Google 翻译</span>
+          </div>
+
+          <div class="provider-grid" role="radiogroup" aria-label="翻译服务">
+            <label class="provider-option">
+              <input class="provider-radio" type="radio" name="provider" value="google">
+              <span class="provider-card">
+                <span class="provider-head">
+                  <span class="provider-logo provider-logo-google" aria-hidden="true">G</span>
+                  <span class="provider-name">Google 翻译</span>
+                </span>
+                <span class="provider-desc">免密钥，通常响应最快</span>
+                <span class="provider-foot">
+                  <span class="provider-tag">推荐</span>
+                  <span class="radio-mark" aria-hidden="true"></span>
+                </span>
+              </span>
+            </label>
+
+            <label class="provider-option">
+              <input class="provider-radio" type="radio" name="provider" value="azure">
+              <span class="provider-card">
+                <span class="provider-head">
+                  <span class="provider-logo provider-logo-azure" aria-hidden="true">A</span>
+                  <span class="provider-name">Microsoft Azure</span>
+                </span>
+                <span class="provider-desc">稳定的微软翻译服务</span>
+                <span class="provider-foot">
+                  <span class="provider-tag">需密钥</span>
+                  <span class="radio-mark" aria-hidden="true"></span>
+                </span>
+              </span>
+            </label>
+
+            <label class="provider-option">
+              <input class="provider-radio" type="radio" name="provider" value="deepl">
+              <span class="provider-card">
+                <span class="provider-head">
+                  <span class="provider-logo provider-logo-deepl" aria-hidden="true">D</span>
+                  <span class="provider-name">DeepL</span>
+                </span>
+                <span class="provider-desc">译文自然，适合长句</span>
+                <span class="provider-foot">
+                  <span class="provider-tag">需密钥</span>
+                  <span class="radio-mark" aria-hidden="true"></span>
+                </span>
+              </span>
+            </label>
+          </div>
+
+          <div class="provider-config" id="googleConfig">
+            <div class="config-note">
+              <span class="note-mark" aria-hidden="true">i</span>
+              <p><strong>无需配置。</strong>使用 Google 翻译公共接口，并在失败时自动切换备用通道。如果你的网络无法访问 Google，请选择 Azure 或 DeepL。</p>
+            </div>
+          </div>
+
+          <div class="provider-config" id="azureConfig" hidden>
+            <div class="field-grid">
+              <label class="field">
+                <span class="field-label">订阅密钥</span>
+                <span class="input-wrap">
+                  <input id="azureKey" type="password" autocomplete="off" spellcheck="false" placeholder="Azure Translator 密钥">
+                  <button class="reveal-btn" type="button" data-target="azureKey" aria-label="显示或隐藏 Azure 密钥">显示</button>
+                </span>
+              </label>
+              <label class="field">
+                <span class="field-label">区域 <span class="optional">可选</span></span>
+                <input id="azureRegion" type="text" autocomplete="off" spellcheck="false" placeholder="例如 eastasia">
+              </label>
+            </div>
+            <p class="field-hint">在 Azure 门户创建一个 Translator 资源，从「密钥和终结点」中复制密钥；使用全局资源时区域可留空。</p>
+          </div>
+
+          <div class="provider-config" id="deeplConfig" hidden>
+            <label class="field">
+              <span class="field-label">API 密钥</span>
+              <span class="input-wrap">
+                <input id="deeplKey" type="password" autocomplete="off" spellcheck="false" placeholder="例如 01234567-89ab-cdef-0123-456789abcdef:fx">
+                <button class="reveal-btn" type="button" data-target="deeplKey" aria-label="显示或隐藏 DeepL 密钥">显示</button>
+              </span>
+            </label>
+            <p class="field-hint">免费版密钥以 <code>:fx</code> 结尾，会自动连接 api-free.deepl.com；专业版使用 api.deepl.com。</p>
+          </div>
+
+          <div class="test-row">
+            <button class="secondary-button" id="testBtn" type="button">
+              <span class="test-spinner" aria-hidden="true"></span>
+              <span id="testBtnLabel">测试当前服务</span>
+            </button>
+            <p class="test-result" id="testResult" role="status" aria-live="polite"></p>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="usageTitle">
+          <div class="panel-head">
+            <div>
+              <h2 id="usageTitle">使用方法</h2>
+              <p>三步开始，之后只需划词。</p>
+            </div>
+          </div>
+          <ol class="steps">
+            <li>
+              <span class="step-index">01</span>
+              <div><strong id="step1Title">固定扩展</strong><p id="step1Text">点击 Edge 工具栏的拼图图标，把「选译」固定到工具栏，然后点击图标打开侧边栏。</p></div>
+            </li>
+            <li>
+              <span class="step-index">02</span>
+              <div><strong>在网页中划选</strong><p id="step2Text">选中单词、短语或句子。侧边栏会立刻显示原文和译文，无需复制粘贴。</p></div>
+            </li>
+            <li>
+              <span class="step-index">03</span>
+              <div><strong>也可以用右键</strong><p id="step3Text">如果侧边栏还没打开，右键选中文字，选择「用『选译』翻译」即可直接打开并翻译。</p></div>
+            </li>
+          </ol>
+          <div class="callout">
+            <span class="callout-mark" aria-hidden="true">!</span>
+            <p>安装或更新扩展后，已经打开的网页需要刷新一次，划词脚本才会生效。</p>
+          </div>
+        </section>
+      </main>
+
+      <aside class="side-column">
+        <section class="panel" aria-labelledby="preferencesTitle">
+          <div class="panel-head">
+            <div>
+              <h2 id="preferencesTitle">翻译偏好</h2>
+              <p>控制选中文字后的默认行为。</p>
+            </div>
+          </div>
+
+          <div class="setting-row">
+            <label class="setting-copy" for="defaultTarget">
+              <span class="setting-title">默认译文语言</span>
+              <span class="setting-desc">智能互译：中文自动译为英文，其他语言译为中文。</span>
+            </label>
+            <select id="defaultTarget" aria-label="默认译文语言"></select>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-copy">
+              <span class="setting-title">自动翻译选中内容</span>
+              <span class="setting-desc" id="autoDesc">关闭后只捕获原文，需要在侧栏点击翻译。</span>
+            </div>
+            <label class="switch">
+              <input id="autoTranslate" type="checkbox" aria-label="自动翻译选中内容">
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="setting-row">
+            <div class="setting-copy">
+              <span class="setting-title">保留翻译历史</span>
+              <span class="setting-desc">只保存在本机。关闭后不会记录新的历史。</span>
+            </div>
+            <label class="switch">
+              <input id="historyEnabled" type="checkbox" aria-label="保留翻译历史">
+              <span class="switch-track" aria-hidden="true"></span>
+            </label>
+          </div>
+
+          <div class="action-row">
+            <button class="ghost-button" id="clearHistoryBtn" type="button">清空历史记录</button>
+            <span class="action-note" id="historyCount">正在读取…</span>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="privacyTitle">
+          <div class="panel-head">
+            <div>
+              <h2 id="privacyTitle">数据与隐私</h2>
+              <p>只处理你主动选中的内容。</p>
+            </div>
+          </div>
+          <ul class="privacy-list">
+            <li>
+              <span class="privacy-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.2c0 4.6 3.2 8.1 7.5 9.8 4.3-1.7 7.5-5.2 7.5-9.8V6L12 3Z"/><path d="m9 12 2 2 4-4"/></svg>
+              </span>
+              <span>不读取页面全文，只发送你选中的文字。</span>
+            </li>
+            <li>
+              <span class="privacy-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="7.5" ry="3"/><path d="M4.5 5v7c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3V5M4.5 12v7c0 1.7 3.4 3 7.5 3s7.5-1.3 7.5-3v-7"/></svg>
+              </span>
+              <span>翻译历史保存在浏览器本地；译文缓存为会话级，关闭浏览器即清空。</span>
+            </li>
+            <li>
+              <span class="privacy-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.3-5.6"/><path d="M20 4v5h-5"/><path d="M12 8v4l2.5 1.5"/></svg>
+              </span>
+              <span>所选文字只会发送给你配置的翻译服务，不会上传到其他服务器。</span>
+            </li>
+          </ul>
+          <div class="action-row">
+            <button class="ghost-button" id="clearCacheBtn" type="button">清除翻译缓存</button>
+            <span class="action-note" id="cacheStatus">加速重复翻译</span>
+          </div>
+        </section>
+
+        <section class="panel" aria-labelledby="shortcutTitle">
+          <div class="panel-head">
+            <div>
+              <h2 id="shortcutTitle">快捷键</h2>
+              <p id="shortcutDesc">需要时快速唤出侧边栏。</p>
+            </div>
+          </div>
+          <div class="shortcut-row">
+            <span id="shortcutLabel">打开侧边栏</span>
+            <span class="shortcut-keys" id="shortcutKeys"></span>
+          </div>
+          <p class="field-hint" id="shortcutPathHint">可以在 <code>edge://extensions/shortcuts</code> 中修改或重新分配快捷键。</p>
+          <div class="action-row" id="shortcutCopyRow">
+            <button class="ghost-button" id="copyShortcutBtn" type="button">复制设置地址</button>
+            <span class="action-note" id="shortcutCopyStatus"></span>
+          </div>
+        </section>
+      </aside>
+    </div>
+
+    <footer class="page-footer">
+      <span>选译 <span id="version"></span> · 只翻译你选中的内容</span>
+      <span>本地优先 · 无账号 · 无追踪</span>
+    </footer>
+  </div>
+
+  <script src="browser-compat.js"></script>
+  <script type="module" src="options.js"></script>
+</body>
+</html>
