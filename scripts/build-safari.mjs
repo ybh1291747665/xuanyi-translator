@@ -54,7 +54,8 @@ for (const file of [
   "src/lib/providers.js",
   "src/lib/settings.js",
   "src/lib/cache.js",
-  "src/lib/platform.js"
+  "src/lib/platform.js",
+  "LICENSE"
 ]) {
   copyFile(file);
 }

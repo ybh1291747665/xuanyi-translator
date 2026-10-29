@@ -163,3 +163,7 @@ scripts/build-safari.mjs   Safari 构建脚本
 ## 免责声明
 
 本项目与 Google、Microsoft、DeepL 无关联。公共翻译接口的可用性、速率和条款由对应服务提供方决定，请按需选择并遵守其使用条款。
+
+## 许可证
+
+本项目采用 [MIT License](LICENSE)。
